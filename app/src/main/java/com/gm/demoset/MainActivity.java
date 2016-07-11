@@ -3,6 +3,7 @@ package com.gm.demoset;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity
     private RecyclerView mRecyclerView;
     private List<String> dataSet = new ArrayList<String>();
     private int n = 1000;
+    private MyAdapter myAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +57,25 @@ public class MainActivity extends AppCompatActivity
         mRecyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(llm);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         for (int i = 0; i < n; i++) {
             dataSet.add("gaoming # " + i);
         }
-        MyAdapter myAdapter = new MyAdapter(dataSet);
+        myAdapter = new MyAdapter(dataSet);
+        myAdapter.setOnClickListener(new MyAdapter.onClickListener() {
+            @Override
+            public void onItemClick(View itemView, int position) {
+                Snackbar.make(getCurrentFocus(), "click position & " + position, Snackbar.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onItemLongClick(View v, int position) {
+                myAdapter.delData(position);
+                Snackbar.make(getCurrentFocus(), "long click position & " + position, Snackbar.LENGTH_SHORT).show();
+            }
+        });
         mRecyclerView.setAdapter(myAdapter);
+
     }
 
     @Override
@@ -89,6 +105,12 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        } else if (id == R.id.insert) {
+            myAdapter.addData(1);
+//            Snackbar.make(getCurrentFocus(), "", Snackbar.LENGTH_SHORT).show();
+        } else if (id == R.id.delete) {
+            myAdapter.delData(1);
+//            Snackbar.make(getCurrentFocus(), "", Snackbar.LENGTH_SHORT).show();
         }
 
         return super.onOptionsItemSelected(item);

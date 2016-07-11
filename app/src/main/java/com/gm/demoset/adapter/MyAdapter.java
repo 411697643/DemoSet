@@ -17,6 +17,17 @@ import java.util.List;
  */
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private List<String> dataSet;
+    private onClickListener mOnClickListener;
+
+    public void setOnClickListener(onClickListener mOnClickListener) {
+        this.mOnClickListener = mOnClickListener;
+    }
+
+    public interface onClickListener {
+        void onItemClick(View itemView, int position);
+
+        void onItemLongClick(View v, int position);
+    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -26,13 +37,42 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mTextView.setText(dataSet.get(position));
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOnClickListener != null) {
+                    int layoutPosition = holder.getLayoutPosition();
+                    mOnClickListener.onItemClick(holder.itemView,layoutPosition);
+                }
+            }
+        });
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (mOnClickListener != null) {
+                    int layoutPosition = holder.getLayoutPosition();
+                    mOnClickListener.onItemLongClick(v, layoutPosition);
+                }
+                return false;
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return dataSet.size();
+    }
+
+    public void addData(int pos) {
+        dataSet.add(pos,"seven & &");
+        notifyItemInserted(pos);
+    }
+
+    public void delData(int pos) {
+        dataSet.remove(pos);
+        notifyItemRemoved(pos);
     }
 
 
@@ -45,8 +85,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 mCardView = (CardView) itemView.findViewById(R.id.card_view);
                 mTextView = (TextView) itemView.findViewById(R.id.text_info);
             }
-
-
 
         }
     }
