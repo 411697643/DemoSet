@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.gm.jianmerchant.MainActivity">
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/tabHost">
+    </android.support.v4.view.ViewPager>
+
+    <com.flyco.tablayout.CommonTabLayout
+        android:id="@+id/tabHost"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="#aac3f5"
+        app:tl_textSelectColor="#fa08f2"
+        app:tl_textUnselectColor="#66000000"
+        app:tl_textsize="30sp"
+        app:tl_underline_color="#f99b9b"
+        app:tl_underline_height="2dp" />
+
+</RelativeLayout>
