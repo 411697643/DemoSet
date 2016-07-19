@@ -1,1 +1,1 @@
-include ':app', ':jianmerchant', ':FlycoTabLayout_Lib'
+include ':app', ':jianmerchant', ':FlycoTabLayout_Lib', ':jpushdemo'

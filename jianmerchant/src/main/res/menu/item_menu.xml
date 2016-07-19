@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:title="查看"
+        android:id="@+id/chakan"
+        app:showAsAction="always"
+        />
+    <item
+        android:title="不看"
+        android:id="@+id/bukan"
+        app:showAsAction="always" />
+
+</menu>
