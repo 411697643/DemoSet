@@ -59,6 +59,7 @@ public class RetrofitRxJavaActivity extends AppCompatActivity implements View.On
         Subscriber subscriber = new Subscriber<HttpResult<List<Subject>>>(){
             @Override
             public void onCompleted() {
+
                 Toast.makeText(RetrofitRxJavaActivity.this, "加载完成", Toast.LENGTH_SHORT).show();
             }
 
@@ -69,10 +70,11 @@ public class RetrofitRxJavaActivity extends AppCompatActivity implements View.On
 
             @Override
             public void onNext(HttpResult<List<Subject>> listHttpResult) {
+
                 result.setText(listHttpResult.getTitle());
             }
         };
-        HttpMethods.getInstance().getMoview(subscriber,0,10);
+        HttpMethods.getInstance(RetrofitRxJavaActivity.this).getMoview(subscriber,0,10,true);
 
     }
 }
